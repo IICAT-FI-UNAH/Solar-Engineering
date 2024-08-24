@@ -1,0 +1,116 @@
+%            Universidad Nacional Autónoma de Honduras                 %
+%                     Facultad de Ingeniería                           %
+%   Instituto de Investigaciones de Ciencias Aplicadas y Tecnológica   %
+% Programa para calcular la Hora de culminación del Sol(EOT)           %
+%                         V 2.0                                        %
+
+
+format long
+% Solicitar datos del usuario
+nombre_ciudad = input('Ingrese el nombre de la ciudad: ', 's');
+latitud = input('Ingrese la latitud del lugar en grados (positiva para N, negativa para S): ');
+longitud = input('Ingrese la longitud del lugar en grados (positiva para E, negativa para W): ');
+%
+
+% Definir los días de cada mes
+dias_en_mes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+meses = {'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', ...
+    'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'};
+
+% Determinar el número máximo de días (para un año no bisiesto)
+max_dias = max(dias_en_mes);
+
+% Inicializar la tabla con el primer encabezado para los días
+tabla_EOT = cell(max_dias + 1, 13);
+tabla_EOT{1, 1} = 'Día';
+
+% Rellenar los encabezados de los meses en la primera fila
+for mes = 1:12
+    tabla_EOT{1, mes + 1} = meses{mes};
+end
+
+% Día acumulado para calcular el número de día en el año
+dia_acumulado = 0;
+
+% Calcular la EOT para cada día del año
+for mes = 1:12
+    for dia = 1:dias_en_mes(mes)
+        % Incrementar el día acumulado
+        dia_acumulado = dia_acumulado + 1;
+        
+        % Calcular el ángulo B en grados
+        B = (360 / 365) * (dia_acumulado - 81);
+        
+        % Convertir B a radianes para las funciones trigonométricas
+        B_rad = deg2rad(B);
+        
+        % Calcular la EOT usando la fórmula proporcionada
+        EOT = 9.87*sin(2*B_rad) - 7.53*cos(B_rad) - 1.5*sin(B_rad);
+        
+        % Calcular el Mediodía Solar
+        M_solar = 12 - EOT / 60 - (longitud + 90) / 15;
+
+        % Convertir M_solar a formato de horas, minutos y segundos
+        hora = fix(M_solar);
+        minutos = fix((M_solar - hora) * 60);
+        segundos = fix(((M_solar - hora) * 60 - minutos) * 60);
+
+        % Convertir M_solar a formato de horas, minutos y segundos
+        hora = fix(M_solar);
+        minutos = fix((M_solar - hora) * 60);
+        segundos = fix(((M_solar - hora) * 60 - minutos) * 60);
+
+        % Ajustar el formato de horas si el valor es mayor a 24
+        if hora < 0
+          hora = 24 + hora;
+        end
+
+        if minutos < 10
+            minutos_str = sprintf('0%d', minutos);
+        else
+          minutos_str = sprintf('%d', minutos);
+        end
+
+        if segundos < 10
+         segundos_str = sprintf('0%d', segundos);
+        else
+          segundos_str = sprintf('%d', segundos);
+        end
+
+        % Formatear la hora, minutos y segundos
+        HMS = sprintf('%d:%s:%s', hora, minutos_str, segundos_str);
+        
+         % Almacenar el día en la primera columna
+        tabla_EOT{dia + 1, 1} = dia;
+        
+        % Almacenar la EOT en la celda correspondiente
+        tabla_EOT{dia + 1, mes + 1} = HMS;
+    end
+end
+
+% Convertir la tabla a formato de Matlab
+T = cell2table(tabla_EOT(2:end,:), 'VariableNames', tabla_EOT(1,:));
+
+% Crear una tabla adicional para la información de la ciudad
+info_ciudad = {
+    'Nombre de la Ciudad', nombre_ciudad;
+    'Latitud', num2str(latitud);
+    'Longitud', num2str(longitud);
+};
+
+% Convertir la tabla de información de la ciudad a formato de MATLAB
+T_info = cell2table(info_ciudad, 'VariableNames', {'Campo', 'Valor'});
+
+% Crear un archivo Excel con la información de la ciudad y la tabla EOT
+string1='MDS_tabla';
+string2=nombre_ciudad;
+filename = strcat(string1, '_', string2, '.xlsx');
+
+% Escribir la información de la ciudad en la primera hoja del Excel
+writetable(T_info, filename, 'Sheet', 'Información de Ciudad', 'WriteRowNames', false);
+
+% Escribir la tabla EOT en la segunda hoja del Excel
+writetable(T, filename, 'Sheet', 'HC', 'WriteRowNames', false);
+
+% Confirmar que se ha guardado en Excel
+fprintf('El archivo Excel "%s" ha sido creado.\n', filename);
