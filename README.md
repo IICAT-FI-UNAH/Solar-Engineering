@@ -5,7 +5,7 @@ Este repositorio será utilizado para la implementación de software tipo open-a
 ## Tiempo Solar real. (ST_90°W Std)
 Este programa resuelve la ecuation de tiempo(EOT) para luego definir en minutos el ajuste en tiempo real de la hora de culminación solar en cualquier lugar que se encuentre en el meridiano -90°W. El desarrollo esta orientado para centroamérica. 
 
-La ecuación para tiempo solar en minutos es: T_so=12-(Lo+L_std)/15-EOT/60; L_std=90°  (Ecuación propuesta por Duffie & Beckman (2013))
+La ecuación para tiempo solar en minutos es: $T_so=12-(L_o+L_std)/15-EOT/60$; $L_std=90°$  (Ecuación propuesta por Duffie & Beckman (2013))
 
 Este codigo permite ver la hora de culiminación para los 365 dias del año.
 
