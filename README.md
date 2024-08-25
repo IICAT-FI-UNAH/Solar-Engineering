@@ -9,12 +9,12 @@ Este programa resuelve la ecuation de tiempo(EOT) para luego definir en minutos 
 $T_{so}=12-\frac{(L_o+L_{std)}}{15}-\frac{EOT}{60}$; $L_{std}=90°$  (Ecuación propuesta por *Duffie & Beckman (2013)*)
 
 **Ecuación de Tiempo**: 
-$EOT= 9.87*\sin{2B}-7.53*\cos{B}-1.50*\sin{B}$ ; donde $B=\frac{360}{364}(n-81)$; siendo n el día consecutivo del año, donde los valores oscilan desde 1<n<365 (Ecuación propuesta por *Kalogirou(2014)* y *Goswami (2015)*.
+$EOT= 9.87*\sin{2B}-7.53*\cos{B}-1.50*\sin{B}$ ; donde $B=\frac{360}{364}(n-81)$; siendo *n* el día consecutivo del año, donde los valores oscilan desde 1<n<365 (Ecuación propuesta por *Kalogirou(2014)* y *Goswami (2015)*.
 
 
 \Este codigo permite ver la hora de culiminación para los 365 dias del año.
 
-Código desarrollado por @fzorto
+Código desarrollado por *@fzorto*
 
 *Referencias*
 1.	Duffie, J. A., & Beckman, W. A. (2013). Solar Engineering of Thermal Processes (4th ed.). Wiley.
