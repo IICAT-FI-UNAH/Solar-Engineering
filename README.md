@@ -20,6 +20,5 @@ Código desarrollado por *@fzorto*
 1.	Duffie, J. A., & Beckman, W. A. (2013). Solar Engineering of Thermal Processes (4th ed.). Wiley.
 2.	Kalogirou, S. A. (2014). Environmental characteristics. In S. A. Kalogirou (Ed.), Solar Energy Engineering (2nd ed., pp. 51-123). Academic Press. https://doi.org/10.1016/B978-0-12-397270-5.00002-9
 3.	Goswami, D.Y. (2015). Principles of Solar Engineering (3rd ed.). CRC Press. https://doi.org/10.1201/b18119
-4.	
 
 
